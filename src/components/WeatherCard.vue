@@ -61,12 +61,7 @@ const windDirection = computed(() => {
       <p class="weather-card__description">
         Feels like {{ Math.round(data.main.feels_like) }}&deg;C
         <br />
-        <!-- {{ data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1) }} -->
-        {{
-          props.name === 'Berlin'
-            ? 'thunderstorm with heavy drizzle'
-            : data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1)
-        }}
+        {{ data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1) }}
       </p>
       <p class="weather-card__wind">
         <IconWindArrow :style="{ rotate: data.wind.deg + 'deg' }" />
