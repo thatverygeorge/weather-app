@@ -31,7 +31,7 @@ function handleDrop(evt: DragEvent, dropIndex: number) {
 </script>
 
 <template>
-  <ul class="locations" v-if="locationsStore.locations.length > 0" role="list">
+  <ul class="locations" v-if="locationsStore.locations.length > 0">
     <li
       v-for="(location, index) in locationsStore.locations"
       :key="location.id"

@@ -11,7 +11,6 @@ const locationsStore = useLocationsStore();
     v-if="locationsStore.locations.length > 0"
     class="weather-list"
     :class="{ 'weather-list--narrow': locationsStore.locations.length === 1 }"
-    role="list"
   >
     <li v-for="location in locationsStore.locations" :key="location.id">
       <Suspense>
@@ -31,7 +30,7 @@ const locationsStore = useLocationsStore();
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1rem;
 
-  @media (width < 350px) {
+  @media (width < 370px) {
     grid-template-columns: 1fr;
   }
 }
@@ -39,7 +38,7 @@ const locationsStore = useLocationsStore();
 .weather-list--narrow {
   grid-template-columns: repeat(auto-fit, minmax(320px, 50%));
 
-  @media (width < 350px) {
+  @media (width < 370px) {
     grid-template-columns: 1fr;
   }
 }

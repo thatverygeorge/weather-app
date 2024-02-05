@@ -61,7 +61,12 @@ const windDirection = computed(() => {
       <p class="weather-card__description">
         Feels like {{ Math.round(data.main.feels_like) }}&deg;C
         <br />
-        {{ data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1) }}
+        <!-- {{ data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1) }} -->
+        {{
+          props.name === 'Berlin'
+            ? 'thunderstorm with heavy drizzle'
+            : data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1)
+        }}
       </p>
       <p class="weather-card__wind">
         <IconWindArrow :style="{ rotate: data.wind.deg + 'deg' }" />
@@ -80,6 +85,9 @@ const windDirection = computed(() => {
 
 <style scoped>
 .weather-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   border: 2px solid var(--green);
   border-radius: 5px;
   background-color: var(--white);
@@ -92,13 +100,17 @@ const windDirection = computed(() => {
 }
 
 .weather-card__content {
+  flex: 1;
+  align-content: flex-start;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: max-content 1fr;
   gap: 1rem;
   padding: 1rem;
 
-  @media (width < 350px) {
+  @media (width < 370px) {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
   }
 }
 
@@ -131,12 +143,10 @@ const windDirection = computed(() => {
     height: 20px;
   }
 
-  @media (width < 350px) {
-    grid-template-columns: repeat(2, 1fr);
-
-    & svg {
-      justify-self: end;
-    }
+  @media (width < 370px) {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 30%;
   }
 }
 </style>
