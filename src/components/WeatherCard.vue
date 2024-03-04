@@ -102,11 +102,6 @@ const windDirection = computed(() => {
   grid-template-rows: max-content 1fr;
   gap: 1rem;
   padding: 1rem;
-
-  @media (width < 370px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-  }
 }
 
 .weather-card__image {
@@ -133,15 +128,18 @@ const windDirection = computed(() => {
   gap: 0.5rem;
   align-items: center;
 
-  & svg {
+  svg {
     width: 20px;
     height: 20px;
+
+    @media (width < 370px) {
+      justify-self: end;
+    }
   }
 
   @media (width < 370px) {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 30%;
+    grid-column: 1 / -1;
+    grid-template-columns: 35% 1fr;
   }
 }
 </style>

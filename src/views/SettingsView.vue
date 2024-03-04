@@ -34,7 +34,7 @@ import SettingsLocationList from '@/components/SettingsLocationList.vue';
   align-self: start;
 
   @media (width < 960px) {
-    position: initial;
+    position: static;
   }
 }
 </style>

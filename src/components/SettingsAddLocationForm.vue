@@ -91,7 +91,7 @@ onUnmounted(() => {
   height: 100%;
 
   @media (width < 495px) {
-    justify-self: end;
+    width: 100%;
   }
 }
 
