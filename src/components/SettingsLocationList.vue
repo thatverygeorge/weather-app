@@ -1,50 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useLocationsStore } from '@/stores/locations';
+import { useDragAndDropStore } from '@/stores/dragAndDrop';
 import IconBurger from '@/components/icons/IconBurger.vue';
 import IconTrashBin from '@/components/icons/IconTrashBin.vue';
 
 const locationsStore = useLocationsStore();
-
-const isDraggedByIcon = ref(false);
-
-function handleDragStart(evt: DragEvent, index: number) {
-  if (!isDraggedByIcon.value) {
-    evt.preventDefault();
-    return;
-  }
-
-  if (evt.dataTransfer) {
-    evt.dataTransfer.dropEffect = 'move';
-    evt.dataTransfer.effectAllowed = 'move';
-    evt.dataTransfer.setData('dragIndex', index.toString());
-  }
-}
-
-function handleDrop(evt: DragEvent, dropIndex: number) {
-  isDraggedByIcon.value = false;
-
-  if (evt.dataTransfer) {
-    locationsStore.handleDragAndDrop(parseInt(evt.dataTransfer.getData('dragIndex')), dropIndex);
-  }
-}
+const dragAndDropStore = useDragAndDropStore();
 </script>
 
 <template>
   <ul class="locations" v-if="locationsStore.locations.length > 0">
     <li
-      v-for="(location, index) in locationsStore.locations"
+      v-for="location in locationsStore.locations"
       :key="location.id"
+      :id="location.id"
       draggable="true"
-      @dragstart="handleDragStart($event, index)"
-      @drop="handleDrop($event, index)"
-      @dragover.prevent
+      @dragstart="dragAndDropStore.handleDragStart"
+      @dragenter="dragAndDropStore.handleDragEnter"
+      @dragend="dragAndDropStore.handleDragEnd"
     >
       <article class="location-card locations__card">
         <IconBurger
           class="location-card__icon-move"
-          @mousedown.left="isDraggedByIcon = true"
-          @mouseup.left="isDraggedByIcon = false"
+          @mousedown.left="dragAndDropStore.isDraggedByIcon = true"
+          @mouseup.left="dragAndDropStore.isDraggedByIcon = false"
         />
         <p>{{ location.name }}, {{ location.country }}</p>
         <button

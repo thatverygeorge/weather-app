@@ -86,20 +86,6 @@ export const useLocationsStore = defineStore('locations', () => {
     return;
   }
 
-  function handleDragAndDrop(dragIndex: number, dropIndex: number) {
-    if (dragIndex === dropIndex) return;
-
-    if (dragIndex < dropIndex) {
-      locations.value.splice(dropIndex + 1, 0, locations.value[dragIndex]);
-      locations.value.splice(dragIndex, 1);
-    }
-
-    if (dragIndex > dropIndex) {
-      locations.value.splice(dropIndex, 0, locations.value[dragIndex]);
-      locations.value.splice(dragIndex + 1, 1);
-    }
-  }
-
   watchEffect(() => {
     localStorage.setItem('savedLocations', JSON.stringify(locations.value));
   });
@@ -109,6 +95,5 @@ export const useLocationsStore = defineStore('locations', () => {
     addLocationByName,
     deleteLocation,
     fetchCurrentWeatherByCoords,
-    handleDragAndDrop,
   };
 });
