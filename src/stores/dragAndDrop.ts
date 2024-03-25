@@ -134,6 +134,10 @@ export const useDragAndDropStore = defineStore('dragAndDrop', () => {
       targetElement.value.style.marginTop = '0';
       targetElement.value.style.marginBottom = '0';
     }
+
+    draggedElement.value = null;
+    targetElement.value = null;
+    position.value = Position.After;
   }
 
   return {
