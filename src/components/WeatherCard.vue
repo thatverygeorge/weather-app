@@ -99,7 +99,6 @@ const windDirection = computed(() => {
   align-content: flex-start;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: max-content 1fr;
   gap: 1rem;
   padding: 1rem;
 }
@@ -131,15 +130,12 @@ const windDirection = computed(() => {
   svg {
     width: 20px;
     height: 20px;
-
-    @media (width < 370px) {
-      justify-self: end;
-    }
   }
 
-  @media (width < 370px) {
-    grid-column: 1 / -1;
-    grid-template-columns: 35% 1fr;
+  @media (width < 365px) {
+    justify-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content fr;
   }
 }
 </style>

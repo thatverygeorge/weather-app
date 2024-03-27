@@ -27,18 +27,18 @@ const locationsStore = useLocationsStore();
 <style scoped>
 .weather-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
   gap: 1rem;
 
-  @media (width < 370px) {
+  @media (width < 365px) {
     grid-template-columns: 1fr;
   }
 }
 
 .weather-list--narrow {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 50%));
+  grid-template-columns: repeat(auto-fit, minmax(335px, 50%));
 
-  @media (width < 370px) {
+  @media (width < 365px) {
     grid-template-columns: 1fr;
   }
 }
