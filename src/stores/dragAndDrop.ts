@@ -40,7 +40,6 @@ export const useDragAndDropStore = defineStore('dragAndDrop', () => {
       draggedElement.value.style.position = 'absolute';
       draggedElement.value.style.top = `${mouseY.value - offsetY.value}px`;
       draggedElement.value.style.left = `${mouseX.value - offsetX.value}px`;
-      draggedElement.value.style.pointerEvents = 'none';
 
       evt.dataTransfer.setDragImage(new Image(), 0, 0);
     } else {
@@ -55,21 +54,29 @@ export const useDragAndDropStore = defineStore('dragAndDrop', () => {
       mouseX.value = evt.pageX;
       mouseY.value = evt.pageY;
 
+      const elements = document.elementsFromPoint(evt.pageX, evt.pageY);
+      elements.forEach((el) => {
+        const item = el.closest('.locations li') as HTMLLIElement;
+        if (item !== null) {
+          handleDragEnter(item);
+        }
+      });
+
       draggedElement.value.style.top = `${mouseY.value - offsetY.value}px`;
       draggedElement.value.style.left = `${mouseX.value - offsetX.value}px`;
     }
   }
 
-  function handleDragEnter(evt: DragEvent) {
-    const target = (evt.target as HTMLElement).closest('li');
+  function handleDragEnter(target: HTMLLIElement) {
+    if (target === draggedElement.value) return;
 
-    if (targetElement.value && target) {
-      if (targetElement.value.id !== target.id) {
-        targetElement.value.style.marginTop = '0';
-        targetElement.value.style.marginBottom = '0';
-        targetElement.value = target;
-      }
-    } else {
+    if (targetElement.value === null) {
+      targetElement.value = target;
+    }
+
+    if (target !== targetElement.value) {
+      targetElement.value.style.marginTop = '0';
+      targetElement.value.style.marginBottom = '0';
       targetElement.value = target;
     }
 
@@ -125,9 +132,10 @@ export const useDragAndDropStore = defineStore('dragAndDrop', () => {
   function handleDragEnd() {
     if (draggedElement.value) {
       draggedElement.value.style.position = 'static';
-      draggedElement.value.style.pointerEvents = 'auto';
       draggedElement.value.style.width = 'auto';
       draggedElement.value.style.height = 'auto';
+      draggedElement.value.style.top = 'auto';
+      draggedElement.value.style.left = 'auto';
     }
 
     if (targetElement.value) {

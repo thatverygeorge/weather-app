@@ -16,7 +16,6 @@ const dragAndDropStore = useDragAndDropStore();
       :id="location.id"
       draggable="true"
       @dragstart="dragAndDropStore.handleDragStart"
-      @dragenter="dragAndDropStore.handleDragEnter"
       @dragend="dragAndDropStore.handleDragEnd"
     >
       <article class="location-card locations__card">
